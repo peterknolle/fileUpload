@@ -1,0 +1,56 @@
+<aura:component controller="FileUploadController"
+                implements="force:hasRecordId,flexipage:availableForAllPageTypes">
+    <ltng:require styles="/resource/SLDS0121/assets/styles/salesforce-lightning-design-system-vf.min.css"/>
+    
+    <aura:attribute name="recordId" type="Id" 
+                    description="The Salesforce record ID of the record on which the file will be attached" />
+    
+    <aura:attribute name="fileName" type="String"
+                    description="The name of the selected file."/>
+    
+    <aura:attribute name="chunkSize" type="Integer" default="237500"
+                    description="The number of bytes to send to the server in one chunk."/>
+    
+    <aura:attribute name="maxFileSize" type="Integer" default="4500000"
+                    description="The maximum size, in bytes, a file is allowed to be."/>
+    
+    <aura:attribute name="errorMessage" type="String" default=""
+                    description="The message to display to the user as an error."/>
+    
+    <aura:registerEvent name="fileUploadStarted" type="c:fileUploadStarted"
+                        description="Fires this event when the attachment starts uploading."/>
+    
+    <aura:registerEvent name="fileUploadEnded" type="c:fileUploadEnded" 
+                        description="Fires this event when the file ends uploading."/>
+    
+    <aura:handler name="fileUploadStarted" action="{!c.handleFileUploadStarted}"/>
+    <aura:handler name="fileUploadEnded" action="{!c.handleFileUploadEnded}"/>
+    
+    <div class="slds">
+        <div class="slds-size--1-of-1 slds-m-top--medium  slds-text-align--center">
+            <aura:renderIf isTrue="{! !empty(v.errorMessage) }">
+                <div class="slds-notify slds-theme--error slds-box--x-small slds-m-bottom--medium" role="alert">
+                    <span class="slds-assistive-text">Info</span>
+                    <div class="notify__content">
+                        <c:svg class="slds-icon slds-icon--small slds-m-right--small slds-col slds-no-flex"
+                               xlinkHref="/resource/SLDS0121/assets/icons/utility-sprite/svg/symbols.svg#warning"/>
+                        <span class="slds-text-heading--small">{!v.errorMessage}</span>
+                    </div>
+                </div> 
+            </aura:renderIf>
+            
+            <!-- The input must be inside of the label so that when the label is clicked
+             it will trigger the file input dialog. The file input control, itself,
+             is hidden from the page via CSS. -->
+            <label aura:id="label" class="file-input-button slds-button slds-button--brand">
+                <input type="file" 
+                       aura:id="file" 
+                       class="slds-button slds-button--brand" 
+                       onchange="{!c.handleFileChange}"/>
+                <ui:outputText aura:id="buttonText" value="Select File"/>
+            </label>
+            <ui:outputText class="slds-m-left--medium" value="{!v.fileName}"/>
+        </div>
+    </div>
+    <a target="_blank" href="/servlet/servlet.FileDownload?file=00P36000000R3TlEAK">get attachment</a>
+</aura:component>

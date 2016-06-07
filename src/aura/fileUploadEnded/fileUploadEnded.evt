@@ -1,0 +1,6 @@
+<aura:event type="COMPONENT" 
+            description="Fired when an attachment is finished uploading.">
+    <aura:attribute name="attachmentId" 
+                    type="Id" 
+                    description="The Salesforce record ID of the attachment."/>
+</aura:event>

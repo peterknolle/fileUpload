@@ -1,0 +1,1 @@
+<aura:event type="COMPONENT" description="Fired when an file begins uploading." />

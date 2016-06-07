@@ -1,0 +1,9 @@
+/* Hide this since the file input cannot be modified */
+.THIS label.file-input-button input[type="file"] {
+    position: fixed;
+    top: -1000px;
+}
+
+.THIS .toggle {
+    display: none;
+}
