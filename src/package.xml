@@ -5,7 +5,10 @@
         <name>ApexClass</name>
     </types>
     <types>
-        <members>*</members>
+        <members>fileUpload</members>
+        <members>fileUploadEnded</members>
+        <members>fileUploadStarted</members>
+        <members>svg</members>
         <name>AuraDefinitionBundle</name>
     </types>
     <types>
